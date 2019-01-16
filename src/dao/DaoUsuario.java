@@ -29,6 +29,7 @@ private Connection connection;
 		statement.setString(2, usuario.getSenha());
 		statement.execute();
 		
+		//Testando o commit do git integrado ao Eclipse
 		connection.commit();
 		
 	  }catch (Exception e) {
