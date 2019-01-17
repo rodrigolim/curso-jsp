@@ -12,7 +12,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Pagina Principal</title>
-<link rel="stylesheet" type="text/css" href="resources/estilo.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/estilo.css" />
 </head>
 <body>
 
