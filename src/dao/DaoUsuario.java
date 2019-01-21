@@ -23,10 +23,13 @@ private Connection connection;
 	
 	public void inserir(BeanCursoJsp usuario) {
 	  try {
-		String sql = "insert into usuario (login, senha) values (?, ?)";
+		String sql = "insert into usuario (login, senha, nome, telefone, email) values (?, ?, ?, ?, ?)";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, usuario.getLogin());
 		statement.setString(2, usuario.getSenha());
+		statement.setString(3, usuario.getNome());
+		statement.setString(4, usuario.getTelefone());
+		statement.setString(5, usuario.getEmail());
 		statement.execute();
 		
 		//Testando o commit do git integrado ao Eclipse
@@ -55,7 +58,10 @@ private Connection connection;
     		BeanCursoJsp beanCursoJsp = new BeanCursoJsp();
     		beanCursoJsp.setId(resultSet.getInt("id"));
     		beanCursoJsp.setLogin(resultSet.getString("login"));
-    		beanCursoJsp.setSenha(resultSet.getString("senha"));
+    		beanCursoJsp.setSenha(resultSet.getString("senha"));    		
+    		beanCursoJsp.setNome(resultSet.getString("nome"));
+    		beanCursoJsp.setTelefone(resultSet.getString("telefone"));
+    		beanCursoJsp.setEmail(resultSet.getString("email"));
     		
     		lista.add(beanCursoJsp);    		
     	}
@@ -82,10 +88,13 @@ private Connection connection;
     
     public void editar(BeanCursoJsp usuario) {
   	  try {
-  		String sql = "update usuario set login = ?, senha = ? where id = "+usuario.getId();
+  		String sql = "update usuario set login = ?, senha = ?, nome = ?, telefone = ?, email = ? where id = "+usuario.getId();
   		PreparedStatement statement = connection.prepareStatement(sql);
   		statement.setString(1, usuario.getLogin());
   		statement.setString(2, usuario.getSenha());
+  		statement.setString(3, usuario.getNome());
+  		statement.setString(4, usuario.getTelefone());
+  		statement.setString(5, usuario.getEmail());
   		statement.executeUpdate();
   		
   		connection.commit();
@@ -108,12 +117,29 @@ private Connection connection;
 			BeanCursoJsp beanCursoJsp = new BeanCursoJsp();
 			beanCursoJsp.setId(resultSet.getInt("id"));
 			beanCursoJsp.setLogin(resultSet.getString("login"));
-			beanCursoJsp.setSenha(resultSet.getString("senha"));
+			beanCursoJsp.setSenha(resultSet.getString("senha"));			
+			beanCursoJsp.setNome(resultSet.getString("nome"));
+			beanCursoJsp.setTelefone(resultSet.getString("telefone"));
+			beanCursoJsp.setEmail(resultSet.getString("email"));
 			
 			return beanCursoJsp;
 		}
 		
 		return null;
+	}
+	
+	
+	public boolean validarLogin(String login) throws SQLException {
+		String sql = "select count(1) as qtd from usuario where login = '"+login+"' ";
+		
+		PreparedStatement statement = connection.prepareStatement(sql);
+		ResultSet resultSet = statement.executeQuery();
+		while (resultSet.next()) {
+				
+			return resultSet.getInt("qtd") <= 0;
+		}
+		
+		return false;
 	}
 
 }

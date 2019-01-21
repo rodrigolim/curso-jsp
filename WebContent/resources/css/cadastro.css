@@ -1,12 +1,19 @@
 <style type="text/css">
 
+.form {
+  position: relative;
+  background: #FFFFFF;
+  max-width: 200px;
+  text-align: center;
+  margin: 0 auto 100px;
+}
+
 .form-style-1 {
-	margin:10px auto;
-	max-width: 400px;
-	text-align: center;
-	padding: 20px 12px 10px 20px;
+	max-width: 500px;
+    margin: 0 auto 100px;	
 	font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
+
 .form-style-1 li {
 	padding: 0;
 	display: block;
@@ -73,7 +80,7 @@ select{
 	height: 100px;
 }
 .form-style-1 input[type=submit], .form-style-1 input[type=button]{
-	background: #4B99AD;
+	background: #1d96b2;
 	padding: 8px 15px 8px 15px;
 	border: none;
 	color: #fff;

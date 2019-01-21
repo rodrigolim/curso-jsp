@@ -14,6 +14,8 @@
     
    <h3>Seja bem vindo ao sistema em JSP</h3>
       
-   <a href="cadastroUsuario.jsp">Cadastro de usuários</a> 
+   <a href="salvarUsuario?acao=listartodos">
+       <img src="resources/img/cadastro_usuario.png" title="Cadastro de usuários" alt="Cadastro de usuários"
+								width="120px" height="120px" /></a></td>
 </body>
 </html>

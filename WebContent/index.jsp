@@ -16,7 +16,8 @@
 </head>
 <body>
 
-	<div class="login-page">
+ 
+   <div class="login-page"> 
 		<div class="form">
 			<form action="LoginServlet" method="post">
 				<input type="text" id="login" name="login" placeholder="usuário" />
@@ -24,7 +25,7 @@
 				<button type="submit">Logar</button>
 			</form>
 		</div>
-	</div>
+	</div>  
 
 </body>
 </html>
