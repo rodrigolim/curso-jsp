@@ -128,7 +128,6 @@ private Connection connection;
 		return null;
 	}
 	
-	
 	public boolean validarLogin(String login) throws SQLException {
 		String sql = "select count(1) as qtd from usuario where login = '"+login+"' ";
 		

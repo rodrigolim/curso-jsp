@@ -9,22 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.BeanCursoJsp;
-import dao.DaoUsuario;
+import beans.BeanProduto;
+import dao.DaoProduto;
 
 /**
- * Servlet implementation class Usuario
+ * Servlet implementation class ProdutoServlet
  */
-@WebServlet("/salvarUsuario")
-public class Usuario extends HttpServlet {
+@WebServlet("/salvarProduto")
+public class ProdutoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	DaoUsuario daoUsuario = new DaoUsuario();
+	DaoProduto daoProduto = new DaoProduto();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Usuario() {
+	public ProdutoServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -37,26 +37,26 @@ public class Usuario extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-
+		
 		try {
 			String acao = request.getParameter("acao");
 			String id = request.getParameter("id");
 
 			if (acao.equalsIgnoreCase("delete")) {
-				daoUsuario.delete(Integer.parseInt(id));
+				daoProduto.delete(Integer.parseInt(id));
 
-				RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");
-				request.setAttribute("usuarios", daoUsuario.listar());
+				RequestDispatcher view = request.getRequestDispatcher("cadastroProduto.jsp");
+				request.setAttribute("produtos", daoProduto.listar());
 				view.forward(request, response);
 			} else if (acao.equalsIgnoreCase("editar")) {
-				BeanCursoJsp beanCursoJsp = daoUsuario.consultar(Integer.parseInt(id));
+				BeanProduto beanProduto = daoProduto.consultar(Integer.parseInt(id));
 
-				RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");
-				request.setAttribute("user", beanCursoJsp);
+				RequestDispatcher view = request.getRequestDispatcher("cadastroProduto.jsp");
+				request.setAttribute("product", beanProduto);
 				view.forward(request, response);
 			} else if (acao.equalsIgnoreCase("listartodos")) {
-				RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");
-				request.setAttribute("usuarios", daoUsuario.listar());
+				RequestDispatcher view = request.getRequestDispatcher("cadastroProduto.jsp");
+				request.setAttribute("produtos", daoProduto.listar());
 				view.forward(request, response);
 			}
 
@@ -79,8 +79,8 @@ public class Usuario extends HttpServlet {
 		if (acao != null && acao.equalsIgnoreCase("reset")) {
 			try {
 
-				RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");
-				request.setAttribute("usuarios", daoUsuario.listar());
+				RequestDispatcher view = request.getRequestDispatcher("cadastroProduto.jsp");
+				request.setAttribute("produtos", daoProduto.listar());
 				view.forward(request, response);
 
 			} catch (Exception e) {
@@ -89,19 +89,16 @@ public class Usuario extends HttpServlet {
 		} else {
 
 			String id = request.getParameter("id");
-			String login = request.getParameter("login");
-			String senha = request.getParameter("senha");
-			String nome = request.getParameter("nome");
-			String telefone = request.getParameter("telefone");
-			String email = request.getParameter("email");
+			String descricao = request.getParameter("descricao");
+			String quantidade = request.getParameter("quantidade");
+			String valor = request.getParameter("valor");
 
-			BeanCursoJsp usuario = new BeanCursoJsp();
-			usuario.setId(!id.isEmpty() ? Integer.parseInt(id) : null);
-			usuario.setLogin(login);
-			usuario.setSenha(senha);
-			usuario.setNome(nome);
-			usuario.setTelefone(telefone);
-			usuario.setEmail(email);
+
+			BeanProduto produto = new BeanProduto();
+			produto.setId(!id.isEmpty() ? Integer.parseInt(id) : null);
+			produto.setDescricao(descricao);
+			produto.setQuantidade(Double.parseDouble(quantidade));
+			produto.setValor(Double.parseDouble(valor));
 
 			try {
 				
@@ -109,8 +106,8 @@ public class Usuario extends HttpServlet {
 				String msg = null;
 				boolean podeInserir = true;
 				
-				if (id == null || id.isEmpty() && !daoUsuario.validarLogin(login)) {
-					msg = "Usuário já existente para este login!";
+				if (id == null || id.isEmpty() && !daoProduto.validarProduto(descricao)) {
+					msg = "Produto já existente para esta descrição!";
 					podeInserir = false;
 				}				
 				
@@ -119,17 +116,17 @@ public class Usuario extends HttpServlet {
 				}
 				
 				if (id == null || id.isEmpty() && podeInserir) {
-					daoUsuario.inserir(usuario);
+					daoProduto.inserir(produto);
 				} else if(id != null || !id.isEmpty()) {
-					daoUsuario.editar(usuario);
+					daoProduto.editar(produto);
 				}
 				
 				if (!podeInserir) {
-					request.setAttribute("user", usuario);
+					request.setAttribute("product", produto);
 				}
 
-				RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");
-				request.setAttribute("usuarios", daoUsuario.listar());
+				RequestDispatcher view = request.getRequestDispatcher("cadastroProduto.jsp");
+				request.setAttribute("produtos", daoProduto.listar());
 				view.forward(request, response);
 
 			} catch (Exception e) {

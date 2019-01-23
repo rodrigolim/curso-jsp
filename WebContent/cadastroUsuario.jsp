@@ -16,30 +16,31 @@
 
 	<center>
 		<h1>Cadastro de usuário</h1>
-		<h3>${msg}</h3>
+		<h3 style="color: orange;">${msg}</h3>
 	</center>
+
 
 	<div class="form">
 		<form action="salvarUsuario" method="post" id="formUser">
 			<ul class="form-style-1">
 				<li><label>Código<span class="required"></span></label> <input
 					type="text" id="id" name="id" value="${user.id}"
-					class="field-divided" /></li>
-				<li><label>Login <span class="required">*</span></label> <input
+					class="field-divided" />
+				<label>Login <span class="required">*</span></label> <input
 					type="text" id="login" name="login" value="${user.login}"
-					class="field-divided" placeholder="informe o login do usário" /></li>
-				<li><label>Senha <span class="required">*</span></label> <input
+					class="field-long" placeholder="informe o login do usário"/>
+				<label>Senha <span class="required">*</span></label> <input
 					type="password" id="senha" name="senha" value="${user.senha}"
-					class="field-divided" placeholder="informe a senha do usário" /></li>					
-				<li><label>Nome <span class="required">*</span></label> <input
+					class="field-long" placeholder="informe a senha do usário" />				
+				<label>Nome <span class="required">*</span></label> <input
 					type="text" id="nome" name="nome" value="${user.nome}"
-					class="field-divided" placeholder="informe o nome do usário" /></li>				
-				<li><label>Telefone <span class="required">*</span></label> <input
+					class="field-long" placeholder="informe o nome do usário" />			
+				<label>Telefone <span class="required">*</span></label> <input
 					type="text" id="telefone" name="telefone" value="${user.telefone}"
-					class="field-divided" placeholder="informe o telefone do usário" /></li>					
-				<li><label>Email <span class="required">*</span></label> <input
+					class="field-long" placeholder="informe o telefone do usário" />					
+			    <label>Email <span class="required">*</span></label> <input
 					type="text" id="email" name="email" value="${user.email}"
-					class="field-divided" placeholder="informe o email do usário" /></li>	
+					class="field-long" placeholder="informe o email do usário" /></li>	
 					
 				<li><input type="submit" value="Salvar" /> <input
 					type="submit" value="Cancelar"
