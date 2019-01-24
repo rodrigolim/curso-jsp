@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    <!-- https://bootsnipp.com/snippets/0BDPG -->
+	<!-- https://bootsnipp.com/snippets/0BDPG -->
 
 	<center>
 		<h1>Cadastro de usuário</h1>
@@ -21,27 +21,29 @@
 
 
 	<div class="form">
-		<form action="salvarUsuario" method="post" id="formUser">
+		<form name="formUser" action="salvarUsuario" method="post"
+			id="formUser" onsubmit="return validarCampos() ? true : false;">
 			<ul class="form-style-1">
 				<li><label>Código<span class="required"></span></label> <input
 					type="text" id="id" name="id" value="${user.id}"
-					class="field-divided" />
-				<label>Login <span class="required">*</span></label> <input
-					type="text" id="login" name="login" value="${user.login}"
-					class="field-long" placeholder="informe o login do usário"/>
-				<label>Senha <span class="required">*</span></label> <input
-					type="password" id="senha" name="senha" value="${user.senha}"
-					class="field-long" placeholder="informe a senha do usário" />				
-				<label>Nome <span class="required">*</span></label> <input
-					type="text" id="nome" name="nome" value="${user.nome}"
-					class="field-long" placeholder="informe o nome do usário" />			
-				<label>Telefone <span class="required">*</span></label> <input
-					type="text" id="telefone" name="telefone" value="${user.telefone}"
-					class="field-long" placeholder="informe o telefone do usário" />					
-			    <label>Email <span class="required">*</span></label> <input
-					type="text" id="email" name="email" value="${user.email}"
-					class="field-long" placeholder="informe o email do usário" /></li>	
-					
+					class="field-divided" /> <label>Login <span
+						class="required">*</span></label> <input type="text" id="login"
+					name="login" value="${user.login}" class="field-long"
+					placeholder="informe o login do usário" /> <label>Senha <span
+						class="required">*</span></label> <input type="password" id="senha"
+					name="senha" value="${user.senha}" class="field-long"
+					placeholder="informe a senha do usário" /> <label>Nome <span
+						class="required">*</span></label> <input type="text" id="nome" name="nome"
+					value="${user.nome}" class="field-long"
+					placeholder="informe o nome do usário" /> <label>Telefone
+						<span class="required">*</span>
+				</label> <input type="text" id="telefone" name="telefone"
+					value="${user.telefone}" class="field-long"
+					placeholder="informe o telefone do usário" /> <label>Email
+						<span class="required">*</span>
+				</label> <input type="text" id="email" name="email" value="${user.email}"
+					class="field-long" placeholder="informe o email do usário" /></li>
+
 				<li><input type="submit" value="Salvar" /> <input
 					type="submit" value="Cancelar"
 					onclick="document.getElementById('formUser').action = 'salvarUsuario?acao=reset'" />
@@ -82,6 +84,29 @@
 			</tbody>
 		</table>
 	</div>
+
+	<script type="text/javascript">
+		function validarCampos() {
+			if (document.getElementById("login").value == '') {
+				window.alert('Informe o login');
+				return false;
+			} else if (document.getElementById("senha").value == '') {
+				window.alert('Informe a senha');
+				return false;
+			} else if (document.getElementById("nome").value == '') {
+				window.alert('Informe o nome');
+				return false;
+			} else if (document.getElementById("telefone").value == '') {
+				window.alert('Informe o telefone');
+				return false;
+			} else if (document.getElementById("email").value == '') {
+				window.alert('Informe o email');
+				return false;
+			}
+
+			return true;
+		}
+	</script>
 
 </body>
 </html>

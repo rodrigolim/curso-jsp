@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.BeanCursoJsp;
+import beans.BeanUsuario;
 import dao.DaoUsuario;
 
 /**
- * Servlet implementation class Usuario
+ * Servlet implementation class UsuarioServlet
  */
 @WebServlet("/salvarUsuario")
-public class Usuario extends HttpServlet {
+public class UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	DaoUsuario daoUsuario = new DaoUsuario();
@@ -24,7 +24,7 @@ public class Usuario extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Usuario() {
+	public UsuarioServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -42,22 +42,24 @@ public class Usuario extends HttpServlet {
 			String acao = request.getParameter("acao");
 			String id = request.getParameter("id");
 
-			if (acao.equalsIgnoreCase("delete")) {
-				daoUsuario.delete(Integer.parseInt(id));
+			if (!(acao == null)) {
+				if (acao.equalsIgnoreCase("delete")) {
+					daoUsuario.delete(Integer.parseInt(id));
 
-				RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");
-				request.setAttribute("usuarios", daoUsuario.listar());
-				view.forward(request, response);
-			} else if (acao.equalsIgnoreCase("editar")) {
-				BeanCursoJsp beanCursoJsp = daoUsuario.consultar(Integer.parseInt(id));
+					RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");
+					request.setAttribute("usuarios", daoUsuario.listar());
+					view.forward(request, response);
+				} else if (acao.equalsIgnoreCase("editar")) {
+					BeanUsuario beanCursoJsp = daoUsuario.consultar(Integer.parseInt(id));
 
-				RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");
-				request.setAttribute("user", beanCursoJsp);
-				view.forward(request, response);
-			} else if (acao.equalsIgnoreCase("listartodos")) {
-				RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");
-				request.setAttribute("usuarios", daoUsuario.listar());
-				view.forward(request, response);
+					RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");
+					request.setAttribute("user", beanCursoJsp);
+					view.forward(request, response);
+				} else if (acao.equalsIgnoreCase("listartodos")) {
+					RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");
+					request.setAttribute("usuarios", daoUsuario.listar());
+					view.forward(request, response);
+				}
 			}
 
 		} catch (Exception e) {
@@ -95,7 +97,7 @@ public class Usuario extends HttpServlet {
 			String telefone = request.getParameter("telefone");
 			String email = request.getParameter("email");
 
-			BeanCursoJsp usuario = new BeanCursoJsp();
+			BeanUsuario usuario = new BeanUsuario();
 			usuario.setId(!id.isEmpty() ? Integer.parseInt(id) : null);
 			usuario.setLogin(login);
 			usuario.setSenha(senha);
@@ -104,26 +106,39 @@ public class Usuario extends HttpServlet {
 			usuario.setEmail(email);
 
 			try {
-				
-				
 				String msg = null;
 				boolean podeInserir = true;
-				
-				if (id == null || id.isEmpty() && !daoUsuario.validarLogin(login)) {
+
+				if (login == null || login.isEmpty()) {
+					msg = "Login deve ser informado!";
+					podeInserir = false;
+				} else if (senha == null || senha.isEmpty()) {
+					msg = "Senha deve ser informada!";
+					podeInserir = false;
+				} else if (nome == null || nome.isEmpty()) {
+					msg = "Nome deve ser informado!";
+					podeInserir = false;
+				} else if (telefone == null || telefone.isEmpty()) {
+					msg = "Telefone deve ser informado!";
+					podeInserir = false;
+				} else if (email == null || email.isEmpty()) {
+					msg = "Email deve ser informado!";
+					podeInserir = false;
+				} else if (id == null || id.isEmpty() && !daoUsuario.validarLogin(login)) {
 					msg = "Usuário já existente para este login!";
 					podeInserir = false;
-				}				
-				
+				}
+
 				if (msg != null) {
 					request.setAttribute("msg", msg);
 				}
-				
+
 				if (id == null || id.isEmpty() && podeInserir) {
 					daoUsuario.inserir(usuario);
-				} else if(id != null || !id.isEmpty()) {
+				} else if (id != null || !id.isEmpty()) {
 					daoUsuario.editar(usuario);
 				}
-				
+
 				if (!podeInserir) {
 					request.setAttribute("user", usuario);
 				}

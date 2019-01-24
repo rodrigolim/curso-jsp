@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    <!-- https://bootsnipp.com/snippets/0BDPG -->
+	<!-- https://bootsnipp.com/snippets/0BDPG -->
 
 	<center>
 		<h1>Cadastro de Produto</h1>
@@ -21,21 +21,22 @@
 
 
 	<div class="form">
-		<form action="salvarProduto" method="post" id="formProduct">
+		<form action="salvarProduto" method="post" id="formProduct"
+			onsubmit="return validarCampos() ? true : false;">
 			<ul class="form-style-1">
 				<li><label>Código<span class="required"></span></label> <input
 					type="text" id="id" name="id" value="${product.id}"
-					class="field-divided" />
-				<label>Descrição <span class="required">*</span></label> <input
-					type="text" id="descricao" name="descricao" value="${product.descricao}"
-					class="field-long" placeholder="informe a descrfição do produto"/>
-				<label>Qiantidade <span class="required">*</span></label> <input
-					type="text" id="quantidade" name="quantidade" value="${product.quantidade}"
-					class="field-divided" placeholder="" />					
-			    <label>Valor <span class="required">*</span></label> <input
+					class="field-divided" /> <label>Descrição <span
+						class="required">*</span></label> <input type="text" id="descricao"
+					name="descricao" value="${product.descricao}" class="field-long"
+					placeholder="informe a descrfição do produto" /> <label>Quantidade
+						<span class="required">*</span>
+				</label> <input type="text" id="quantidade" name="quantidade"
+					value="${product.quantidade}" class="field-divided" placeholder="" />
+					<label>Valor <span class="required">*</span></label> <input
 					type="text" id="valor" name="valor" value="${product.valor}"
-					class="field-divided" placeholder="" /></li>	
-					
+					class="field-divided" placeholder="" /></li>
+
 				<li><input type="submit" value="Salvar" /> <input
 					type="submit" value="Cancelar"
 					onclick="document.getElementById('formProduct').action = 'salvarProduto?acao=reset'" />
@@ -76,6 +77,23 @@
 			</tbody>
 		</table>
 	</div>
+
+	<script type="text/javascript">
+		function validarCampos() {
+			if (document.getElementById("descricao").value == '') {
+				window.alert('Informe a descricao');
+				return false;
+			} else if (document.getElementById("quantidade").value == '') {
+				window.alert('Informe a quantidade');
+				return false;
+			} else if (document.getElementById("valor").value == '') {
+				window.alert('Informe o valor');
+				return false;
+			}
+
+			return true;
+		}
+	</script>
 
 </body>
 </html>

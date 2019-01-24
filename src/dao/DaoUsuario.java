@@ -9,7 +9,7 @@ import java.util.List;
 
 import javax.websocket.MessageHandler.Whole;
 
-import beans.BeanCursoJsp;
+import beans.BeanUsuario;
 import connection.SingleConnection;
 import jdk.nashorn.internal.ir.WhileNode;
 
@@ -21,7 +21,7 @@ private Connection connection;
 		connection = SingleConnection.getConnection();
 	}
 	
-	public void inserir(BeanCursoJsp usuario) {
+	public void inserir(BeanUsuario usuario) {
 	  try {
 		String sql = "insert into usuario (login, senha, nome, telefone, email) values (?, ?, ?, ?, ?)";
 		PreparedStatement statement = connection.prepareStatement(sql);
@@ -45,8 +45,8 @@ private Connection connection;
 	  }			
 	}
 	
-    public List<BeanCursoJsp> listar() throws SQLException{
-    	List<BeanCursoJsp> lista = new ArrayList<BeanCursoJsp>();
+    public List<BeanUsuario> listar() throws SQLException{
+    	List<BeanUsuario> lista = new ArrayList<BeanUsuario>();
     	
     	String sql = "select * from usuario";
     	
@@ -55,7 +55,7 @@ private Connection connection;
     	
     	while (resultSet.next()) {
     		
-    		BeanCursoJsp beanCursoJsp = new BeanCursoJsp();
+    		BeanUsuario beanCursoJsp = new BeanUsuario();
     		beanCursoJsp.setId(resultSet.getInt("id"));
     		beanCursoJsp.setLogin(resultSet.getString("login"));
     		beanCursoJsp.setSenha(resultSet.getString("senha"));    		
@@ -86,7 +86,7 @@ private Connection connection;
 	  }
     }
     
-    public void editar(BeanCursoJsp usuario) {
+    public void editar(BeanUsuario usuario) {
   	  try {
   		String sql = "update usuario set login = ?, senha = ?, nome = ?, telefone = ?, email = ? where id = "+usuario.getId();
   		PreparedStatement statement = connection.prepareStatement(sql);
@@ -109,12 +109,12 @@ private Connection connection;
   	  }			
   	}
 
-	public BeanCursoJsp consultar(Integer id) throws SQLException {
+	public BeanUsuario consultar(Integer id) throws SQLException {
 		String sql = "select * from usuario where id = "+id;
 		PreparedStatement statement = connection.prepareStatement(sql);
 		ResultSet resultSet = statement.executeQuery();
 		while (resultSet.next()) {
-			BeanCursoJsp beanCursoJsp = new BeanCursoJsp();
+			BeanUsuario beanCursoJsp = new BeanUsuario();
 			beanCursoJsp.setId(resultSet.getInt("id"));
 			beanCursoJsp.setLogin(resultSet.getString("login"));
 			beanCursoJsp.setSenha(resultSet.getString("senha"));			
