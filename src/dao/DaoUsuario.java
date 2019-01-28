@@ -23,13 +23,20 @@ private Connection connection;
 	
 	public void inserir(BeanUsuario usuario) {
 	  try {
-		String sql = "insert into usuario (login, senha, nome, telefone, email) values (?, ?, ?, ?, ?)";
+		String sql = "insert into usuario (login, senha, nome, telefone, email, cep, rua, bairro, cidade, uf, ibge) "
+				      + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, usuario.getLogin());
 		statement.setString(2, usuario.getSenha());
 		statement.setString(3, usuario.getNome());
 		statement.setString(4, usuario.getTelefone());
-		statement.setString(5, usuario.getEmail());
+		statement.setString(5, usuario.getEmail());		
+		statement.setString(6, usuario.getCep());
+		statement.setString(7, usuario.getRua());
+		statement.setString(8, usuario.getBairro());
+		statement.setString(9, usuario.getCidade());
+		statement.setString(10, usuario.getUf());
+		statement.setString(11, usuario.getIbge());
 		statement.execute();
 		
 		//Testando o commit do git integrado ao Eclipse
@@ -61,7 +68,13 @@ private Connection connection;
     		beanCursoJsp.setSenha(resultSet.getString("senha"));    		
     		beanCursoJsp.setNome(resultSet.getString("nome"));
     		beanCursoJsp.setTelefone(resultSet.getString("telefone"));
-    		beanCursoJsp.setEmail(resultSet.getString("email"));
+    		beanCursoJsp.setEmail(resultSet.getString("email"));    		
+    		beanCursoJsp.setCep(resultSet.getString("cep"));
+    		beanCursoJsp.setRua(resultSet.getString("rua"));
+    		beanCursoJsp.setBairro(resultSet.getString("bairro"));
+    		beanCursoJsp.setCidade(resultSet.getString("cidade"));
+    		beanCursoJsp.setUf(resultSet.getString("uf"));
+    		beanCursoJsp.setIbge(resultSet.getString("ibge"));
     		
     		lista.add(beanCursoJsp);    		
     	}
@@ -88,13 +101,21 @@ private Connection connection;
     
     public void editar(BeanUsuario usuario) {
   	  try {
-  		String sql = "update usuario set login = ?, senha = ?, nome = ?, telefone = ?, email = ? where id = "+usuario.getId();
+  		String sql = "update usuario set login = ?, senha = ?, nome = ?, telefone = ?, email = ?, "
+  				     + " cep = ?, rua = ?, bairro = ?, cidade = ?, uf = ?, ibge = ? " 
+  				+ " where id = "+usuario.getId();
   		PreparedStatement statement = connection.prepareStatement(sql);
   		statement.setString(1, usuario.getLogin());
   		statement.setString(2, usuario.getSenha());
   		statement.setString(3, usuario.getNome());
   		statement.setString(4, usuario.getTelefone());
-  		statement.setString(5, usuario.getEmail());
+  		statement.setString(5, usuario.getEmail());  		
+  		statement.setString(6, usuario.getCep());
+  		statement.setString(7, usuario.getRua());
+  		statement.setString(8, usuario.getBairro());
+  		statement.setString(9, usuario.getCidade());
+  		statement.setString(10, usuario.getUf());
+  		statement.setString(11, usuario.getIbge());
   		statement.executeUpdate();
   		
   		connection.commit();
@@ -121,6 +142,12 @@ private Connection connection;
 			beanCursoJsp.setNome(resultSet.getString("nome"));
 			beanCursoJsp.setTelefone(resultSet.getString("telefone"));
 			beanCursoJsp.setEmail(resultSet.getString("email"));
+			beanCursoJsp.setCep(resultSet.getString("cep"));
+    		beanCursoJsp.setRua(resultSet.getString("rua"));
+    		beanCursoJsp.setBairro(resultSet.getString("bairro"));
+    		beanCursoJsp.setCidade(resultSet.getString("cidade"));
+    		beanCursoJsp.setUf(resultSet.getString("uf"));
+    		beanCursoJsp.setIbge(resultSet.getString("ibge"));
 			
 			return beanCursoJsp;
 		}

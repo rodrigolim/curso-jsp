@@ -95,7 +95,13 @@ public class UsuarioServlet extends HttpServlet {
 			String senha = request.getParameter("senha");
 			String nome = request.getParameter("nome");
 			String telefone = request.getParameter("telefone");
-			String email = request.getParameter("email");
+			String email = request.getParameter("email");			
+			String cep = request.getParameter("cep");
+			String rua = request.getParameter("rua");
+			String bairro = request.getParameter("bairro");
+			String cidade = request.getParameter("cidade");
+			String uf = request.getParameter("uf");
+			String ibge = request.getParameter("ibge");
 
 			BeanUsuario usuario = new BeanUsuario();
 			usuario.setId(!id.isEmpty() ? Integer.parseInt(id) : null);
@@ -103,7 +109,13 @@ public class UsuarioServlet extends HttpServlet {
 			usuario.setSenha(senha);
 			usuario.setNome(nome);
 			usuario.setTelefone(telefone);
-			usuario.setEmail(email);
+			usuario.setEmail(email);			
+			usuario.setCep(cep);
+			usuario.setRua(rua);
+			usuario.setBairro(bairro);
+			usuario.setCidade(cidade);
+			usuario.setUf(uf);
+			usuario.setIbge(ibge);
 
 			try {
 				String msg = null;

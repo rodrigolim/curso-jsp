@@ -13,6 +13,9 @@
 <body>
 
 	<!-- https://bootsnipp.com/snippets/0BDPG -->
+	
+	<a href="acessoliberado.jsp">Inicío</a>
+	<a href="index.jsp">Sair</a>
 
 	<center>
 		<h1>Cadastro de Produto</h1>
