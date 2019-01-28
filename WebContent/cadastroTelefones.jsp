@@ -22,7 +22,7 @@
 
 
 	<div class="form">
-		<form name="formTelefone" action="salvarTelefones" method="post"
+		<form name="formTelefone" action="salvarTelefones?acao=listartodos" method="post"
 			id="formUser" onsubmit="return validarCampos() ? true : false;">
 			<ul class="form-style-1">
 				<li>
